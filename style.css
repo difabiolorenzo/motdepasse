@@ -1,0 +1,103 @@
+body {
+    text-align: center;
+    margin: 0;
+    background-color: black;
+    transition: cubic-bezier();
+}
+
+#game {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+h1 {
+    color: #007BFF;
+}
+
+.word, button {
+    font-size: 24px;
+    margin-top: 2.5vh;
+    margin-bottom: 2.5vh;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    background: linear-gradient(135deg, #000000, #410000);
+    color: white;
+    text-transform: uppercase;
+    padding: 1vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    font-family: fantasy;
+    letter-spacing: 3px;
+    border: 3px solid #ad0000;
+    text-shadow: 0 0 20px red;
+    transition: 0.5s;
+}
+
+.word.correct {
+    color: #00ff14;
+    text-shadow: 0 0 5px black;
+    background: linear-gradient(135deg, #000000, #004116);
+    border: 3px solid #1bad00;
+    margin-bottom: -3.5vh;
+}
+
+.word.wrong {
+    color: #ffe173;
+    text-shadow: 0 0 5px #000000;
+    background: linear-gradient(135deg, #000000, #413f00);
+    border: 3px solid #ad9000;
+}
+
+.word.hided {
+    color: #ffffff00;
+    text-shadow: 0 0 13px #595959;
+    user-select: none;
+    margin-bottom: -4.5vh;
+}
+
+@keyframes arrowLeft {
+    from { padding-left: 0.5em; }
+    to   { padding-left: 0.75em; }
+}
+
+@keyframes arrowRight {
+    from { padding-right: 0.5em; }
+    to   { padding-right: 0.75em; }
+}
+
+.word.current {
+    &:after {
+    content: '\25c4';
+    animation: arrowLeft 0.5s ease-in-out infinite alternate;
+    padding-left: 0.5em;
+    }
+    &::before {
+    content: '\25ba';
+    animation: arrowRight 0.5s ease-in-out infinite alternate;
+    padding-right: 0.5em;
+    }
+}
+
+button {
+    border: 3px solid #737373;
+    background: linear-gradient(135deg, #000000, #494949);
+    text-shadow: 0 0 20px #575757;
+    width: -webkit-fill-available;
+}
+
+
+div#wordDisplay {
+    height: 75vh;
+}
+
+div#controls {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
