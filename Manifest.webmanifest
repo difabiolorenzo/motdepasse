@@ -1,0 +1,10 @@
+{
+  "short_name": "Mot de passe",
+  "name": "Mot de passe",
+  "theme_color": "#410000",
+  "background_color": "#410000",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "screenshots": [],
+  "description": "Mot de Passe"
+}
