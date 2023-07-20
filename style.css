@@ -43,7 +43,7 @@ h1 {
     text-shadow: 0 0 5px black;
     background: linear-gradient(135deg, #000000, #004116);
     border: 3px solid #1bad00;
-    margin-bottom: -3.5vh;
+    margin-bottom: -3vh;
 }
 
 .word.wrong {
@@ -71,7 +71,7 @@ h1 {
 }
 
 .word.current {
-    &:after {
+    &::after {
     content: '\25c4';
     animation: arrowLeft 0.5s ease-in-out infinite alternate;
     padding-left: 0.5em;
@@ -81,6 +81,10 @@ h1 {
     animation: arrowRight 0.5s ease-in-out infinite alternate;
     padding-right: 0.5em;
     }
+}
+
+.word.current {
+    margin-top: 5vh;
 }
 
 button {
