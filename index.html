@@ -7,16 +7,36 @@
     <title>Mot de Passe</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="game">
-        <div id="wordDisplay"></div>
-        <div id="controls">
-            <button id="generateButton" style="display: none;">Recommencer</button>
-            <button id="validateButton">Valider</button>
-            <button id="passButton">Passer</button>
+<body class="style_2009">
+    <div id="menu" style="display: none;">
+        <div>
+            <button id="startButton">Commencer</button>
+            <button id="changeStyleButton">Style</button>
+        </div>
+        <div id="rules">
+            <h3>Les interdits</h3>
+            <ul>
+                <li>PAS DE MOT COMPOSÉ</li>
+                <li>PAS DE MOT DE MÊME FAMILLE</li>
+                <li>PAS DE MOT COMMENÇANT PAR LE MÊME SON</li>
+                <li>PAS DE MIME</li>
+            </ul>
         </div>
     </div>
-
+    <div id="game" style="display: flex;">
+        <div id="chronoDisplay"></div>
+        <div id="content">
+            <div id="wordsStatus">...</div>
+            <div id="wordDisplay">...</div>
+            <div id="recapDisplay" style="display: none;"></div>
+        </div>
+        <div id="controls">
+            <button id="restartButton" style="display: none;">Recommencer</button>
+            <button id="invalidateButton">Invalider</button>
+            <button id="passButton">Passer</button>
+            <button id="validateButton">Valider</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
