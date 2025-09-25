@@ -40,8 +40,8 @@ button#exit_button {
     top: 0;
     left: 0;
     border: 0;
-    height: 5vh;
-    width: 5vh;
+    height: 7.5vh;
+    width: 7.5vh;
     border-radius: 50%;
     margin: 2.5vh;
 }
@@ -105,10 +105,11 @@ div#password_ingame_content {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-div#password_timer_global {
+#password_timer {
     font-size: 1.5rem;
     /* margin-left: auto; */
     padding: 0 1.5rem;
+    width: 10rem;
 }
 
 .password-shield {
@@ -187,7 +188,7 @@ div#password_timer_global {
     justify-content: center;
 }
 
-#game.password_2016 div#ingame_option {
+#game_2016 div#ingame_option {
     background-color: var(--password_2016_background);
 }
 span.word_indicator::before {
@@ -207,20 +208,20 @@ span.word_indicator {
     margin: 5px;
     transition: 0.25s;
 }
-div#game.password_2016 span.word_indicator {
+div#game_2016 span.word_indicator {
     background-color: #252525;
 }
 span.word_indicator.pass {
     background-color: orange;
     animation: 0.5s infinite alternate cubic-bezier(0.65, 0.05, 0.36, 1) animation-word-indicator-pass-pending;
 }
-span.word_indicator.disabled, div#game.password_2016 span.word_indicator.disabled {
+span.word_indicator.disabled, div#game_2016 span.word_indicator.disabled {
     background-color: #c40d0d;
 }
-#password_ingame_status span.word_indicator.disabled, div#game.password_2016 #password_ingame_status span.word_indicator.disabled {
+#password_ingame_status span.word_indicator.disabled, div#game_2016 #password_ingame_status span.word_indicator.disabled {
     animation: 0.25s ease-in-out animation-word-indicator-shake;
 }
-span.word_indicator.correct, div#game.password_2016 span.word_indicator.correct {
+span.word_indicator.correct, div#game_2016 span.word_indicator.correct {
     background-color: var(--password-correct);
 }
 
@@ -287,8 +288,4 @@ div#password_recap_placeholder {
     }
 }
 
-#button_password_start.started {
-    margin: 0rem 0 0;
-    height:0;
-    opacity:0;
-}
+#title {text-transform: uppercase;color: white;font-weight: bold;font-size: xxx-large;margin: 5vh 0;}

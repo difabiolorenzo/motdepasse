@@ -16,46 +16,44 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body onload="init()" class="password_2016">
-        <div id="menu" class="page">
+        <div id="game" class="page centered p-2">
+            <button id="exit_button" role="button" class="centered d-none" onclick="endPassword()"><span class="material-symbols material-symbols-outlined">close</span></button>
+            <h1 id="title">Mot de passe</h1>
             <div class="centered">
-                <button id="button_menu_start" role="button" class="btn password-button" onclick="initPassword()">Commencer</button>
-                <button role="button" data-bs-toggle="modal" data-bs-target="#modal_settings" class="btn password-button">Paramètres</button>
-            </div>
-            <div id="rules">
-                <h3>Les interdits</h3>
-                <ul>
-                    <li>Pas de mot composé</li>
-                    <li>Pas de mot de même famille</li>
-                    <li>Pas de mot commençant par le même son</li>
-                    <li>Pas de mime</li>
-                </ul>
-            </div>
-        </div>
-        <div id="game" class="page centered">
-            <button id="exit_button" role="button" onclick="quitPassword()"><</button>
-
-            <div class="centered">
-                <button id="button_password_start" role="button" class="btn password-button" onclick="startPassword()">Lancer</button>
-                <button id="button_password_next" role="button" disabled class="d-none btn password-button" onclick="startPassword()">Mot suivant</button>
-                <button id="button_password_restart" role="button" class="d-none btn password-button" onclick="initPassword()">Recommencer</button>
-                <button id="button_password_quit" role="button" class="d-none btn password-button" onclick="quitPassword()">Quitter</button>
-                <button id="button_password_settings" role="button" data-bs-toggle="modal" data-bs-target="#modal_settings" class="d-none btn password-button">Paramètres</button>
+                <button id="button_password_start" role="button" class="btn password-button" onclick="initializeWords()">Lancer</button>
+                <button id="button_password_next" role="button" disabled class="d-none btn password-button" onclick="">Mot suivant</button>
+                <button id="button_password_settings" role="button" data-bs-toggle="modal" data-bs-target="#modal_settings" class="btn password-button">Paramètres</button>
                 <button id="button_password_recap" role="button" data-bs-toggle="modal" data-bs-target="#modal_recap" class="d-none btn password-button">Afficher le racapitulatif</button>
+                
+                <div id="rules" class="p-2 m-2 card w-100">
+                    <h3>Les interdits</h3>
+                    <ul>
+                        <li>Pas de mime</li>
+                        <li>Pas de mot composé</li>
+                        <li>Pas de mot de même famille</li>
+                        <li>Pas de mot commençant par le même son</li>
+                    </ul>
+                </div>
+
+                <div id="credits" class="p-2 m-2 card w-100">
+                    <h3>Crédits</h3>
+                    <p><a href="https://getbootstrap.com/">Bootstrap</a></p>
+                    <p><a href="https://trouve-mot.fr/">trouve-mot.fr</a> par <a href="https://brice-eliasse.com/">Brice Eliasse</a></p>
+                    <br>
+                    <code id="version"></code>
+                </div>
             </div>
             <div id="password_ingame_content" class="not-started">
                 <div class="centered"> 
-                    <div class="password_timer password-shield">
-                        <div id="password_timer_global" class="d-none" role="progressbar" 
-                        style="width: 100%">0:00</div>
-                    </div>
+                    <span id="password_timer" class="centered password-shield d-none" role="progressbar">0</span>
                     <div id="password_ingame_status" class="password-shield"></div>
                     <span id="password_ingame_display" class="password-shield" onclick="alert(this.innerText)">...</span>
                 </div>            
             </div>
             <div id="password_controls" class="bottom-0 d-flex flex-nowrap justify-content-center p-2 position-fixed w-100 not-started">
-                <button id="button_password_invalidate" role="button" disabled class="btn password-button" onclick="passwordInvalidate()"><span class="material-symbols material-symbols-outlined">close</span></button>
-                <button id="button_password_pass" role="button" disabled class="btn password-button" onclick="passwordPass()"><span class="material-symbols material-symbols-outlined">keyboard_return</span></button>
-                <button id="button_password_validate" role="button" disabled class="btn password-button" onclick="passwordValidate()"><span class="material-symbols material-symbols-outlined">check</span></button>
+                <button id="button_password_invalidate" role="button" disabled class="btn password-button" onclick="passwordInvalidate(); passwordDisplayNextWord();"><span class="material-symbols material-symbols-outlined">close</span></button>
+                <button id="button_password_pass" role="button" disabled class="btn password-button" onclick="passwordPass(); passwordDisplayNextWord();"><span class="material-symbols material-symbols-outlined">keyboard_return</span></button>
+                <button id="button_password_validate" role="button" disabled class="btn password-button" onclick="passwordValidate(); passwordDisplayNextWord();"><span class="material-symbols material-symbols-outlined">check</span></button>
             </div>
         </div>
 
@@ -86,35 +84,52 @@
                             </div>
                         </div>
 
-                        <!-- Chronomètre global -->
+                        <!-- Nombre de mot -->
                         <div class="mb-3 d-none">
-                            <h6>Chronomètre</h6>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" id="input_timer_global" type="checkbox"
-                                    checked onclick="settings.use_timer_total = this.checked;" >
-                                <label class="form-check-label" for="input_timer_global">Activer le chronomètre global</label>
-                            </div>
+                            <h6>Style</h6>          
                             <div class="mt-2">
-                                <label for="slider_timer_total" class="form-label">Durée totale</label>
-                                <div class="d-flex">
-                                    <input type="range" class="form-range" id="slider_timer_total"
-                                        min="30" max="120" value=""
-                                        oninput="
-                                            document.getElementById('slider_timer_total_value').innerText = this.value;
-                                            settings.timer_total = parseInt(this.value)
-                                        ">
-                                    <div class="ms-2 text-nowrap">
-                                        <span id="slider_timer_total_value"></span><span> secondes</span>
-                                    </div>
+                                <div class="mb-3">
+                                    <select class="form-select form-select-lg" name="" id="select_style" onchange="settings.style = this.value">
+                                        <option selected value="2016">2016</option>
+                                        <option value="2009">2009</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <!-- Temps par mot -->
-                        <div class="mb-3 d-none">
-                            <h6>Temps par mot</h6>
+
+                        <!-- Chronomètre global -->
+                        <div class="mb-3">
+                            <h6>Chronomètre</h6>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" id="input_timer_global" type="checkbox"
+                                    checked onclick="
+                                        settings.use_timer_global = this.checked;
+                                        document.getElementById('input_timer_word').checked = false;
+                                        settings.use_timer_word = false;
+                                    " >
+                                <label class="form-check-label" for="input_timer_global">Activer le chronomètre global</label>
+                            </div>
+                            <div class="mt-2">
+                                <label for="slider_timer_global" class="form-label">Durée totale</label>
+                                <div class="d-flex">
+                                    <input type="range" class="form-range" id="slider_timer_global"
+                                        min="10" max="120" value=""
+                                        oninput="
+                                            document.getElementById('slider_timer_global_value').innerText = this.value;
+                                            settings.timer_global = parseInt(this.value)
+                                        ">
+                                    <div class="ms-2 text-nowrap">
+                                        <span id="slider_timer_global_value"></span><span> secondes</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" id="input_timer_word" type="checkbox"
-                                    onclick="game.settings.use_timer_word = this.checked" checked>
+                                    onclick="
+                                        settings.use_timer_word = this.checked;
+                                        document.getElementById('input_timer_global').checked = false;
+                                        settings.use_timer_global = false;
+                                    " checked>
                                 <label class="form-check-label" for="input_timer_word">Limiter le temps par mot</label>
                             </div>
                             <div class="mt-2">
@@ -131,9 +146,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mt-2">
-                                <code>checkbox automatic passe after timed word</code>
+                            <div class="mt-2 d-none">
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkbox_timer_word_automatic_change" onchange="settings.timer_word = this.checked"/>
+                                    <label class="form-check-label" for="checkbox_timer_word_automatic_change">Changer automatiquement de mot à la fin du temps</label>
+                                 </div>
                             </div>
+                        </div>
+                        <!-- Temps par mot -->
+                        <div class="mb-3 d-none">
+                            <h6>Temps par mot</h6>
+
                         </div>
                         <!-- Nombre de passes -->
                         <div class="mb-3 d-none">
