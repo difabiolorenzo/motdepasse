@@ -10,7 +10,7 @@ function defaultVariables() {
         passes_left: -1
     };
     global = {
-        version: [0, 2, 0],
+        version: [0, 2, 1],
         debug: false,
         modal_recap: new bootstrap.Modal(document.getElementById('modal_recap')),
         modal_settings: new bootstrap.Modal(document.getElementById('modal_settings')),

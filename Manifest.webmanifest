@@ -1,10 +1,30 @@
 {
   "short_name": "Mot de passe",
   "name": "Mot de passe",
-  "theme_color": "#410000",
-  "background_color": "#410000",
+  "theme_color": "#0dafce",
+  "background_color": "#0dafce",
   "display": "fullscreen",
   "orientation": "portrait",
+  "icons": [
+      {
+          "src": "https://difabiolorenzo.github.io/motdepasse/src/img/icon_48.jpg",
+          "type": "image/png",
+          "sizes": "48x48",
+          "purpose": "any maskable"
+      },
+      {
+          "src": "https://difabiolorenzo.github.io/motdepasse/src/img/icon_96.jpg",
+          "type": "image/png",
+          "sizes": "96x96",
+          "purpose": "any maskable"
+      },
+      {
+          "src": "https://difabiolorenzo.github.io/motdepasse/src/img/icon_192.jpg",
+          "type": "image/png",
+          "sizes": "192x192",
+          "purpose": "any maskable"
+      }
+  ],
   "screenshots": [],
   "description": "Mot de Passe"
 }
