@@ -10,7 +10,7 @@ function defaultVariables() {
         passes_left: -1
     };
     global = {
-        version: [0, 2, 1],
+        version: [0, 2, 2],
         debug: false,
         modal_recap: new bootstrap.Modal(document.getElementById('modal_recap')),
         modal_settings: new bootstrap.Modal(document.getElementById('modal_settings')),
@@ -30,7 +30,8 @@ function defaultVariables() {
             style: "2016"
     };
 
-    document.getElementById("version").innerHTML = global.version;
+    // Affichage de la version
+    document.getElementById("version").innerHTML = `Mot de passe ${global.version.join(".")}`;
     
     //Nombre de mot
     document.getElementById("slider_word_amount").value = settings.word_amount;
